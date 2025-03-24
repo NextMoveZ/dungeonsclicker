@@ -1,0 +1,210 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Game UI styles */
+.boss-health-bar {
+  @apply w-full h-3 bg-gray-700 rounded-full overflow-hidden mt-1;
+}
+
+.boss-health-fill {
+  @apply h-full bg-red-500 transition-all duration-300 ease-out;
+}
+
+/* Damage numbers animation */
+@keyframes float-up {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+}
+
+.damage-number {
+  position: absolute;
+  animation: float-up 1s forwards;
+  font-weight: bold;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+  pointer-events: none;
+}
+
+.damage-number.critical {
+  color: #ff5252;
+  font-size: 1.2em;
+}
+
+@layer base {
+  :root {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 346 77.3% 49.8%;
+    --primary-foreground: 355 100% 97.3%;
+
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 346 77.3% 49.8%;
+
+    --radius: 0.5rem;
+
+    --chart-1: 346 77.3% 49.8%;
+    --chart-2: 221 83.2% 53.3%;
+    --chart-3: 142 76.2% 36.3%;
+    --chart-4: 35 91.0% 55.8%;
+    --chart-5: 261 83.3% 58.2%;
+
+    --sidebar-background: 240 5% 5.9%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 346 77.3% 49.8%;
+    --sidebar-primary-foreground: 355 100% 97.3%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 346 77.3% 49.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+  }
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+}
+
+canvas {
+  width: 100% !important;
+  height: 100% !important;
+  touch-action: none;
+}
+
+.game-cursor {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24' fill='none' stroke='%23ff6b6b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 12C14 9.79 12.21 8 10 8C7.79 8 6 9.79 6 12C6 14.21 7.79 16 10 16'%3E%3C/path%3E%3Cpath d='M18 12C18 14.21 16.21 16 14 16'%3E%3C/path%3E%3Cpath d='M18 8V9'%3E%3C/path%3E%3Cpath d='M18 15V16'%3E%3C/path%3E%3Cpath d='M2 12L22 12'%3E%3C/path%3E%3C/svg%3E"), pointer;
+}
+
+.damage-number {
+  animation: float-up 0.8s ease-out forwards, fade-out 0.8s ease-out forwards;
+  position: absolute;
+  font-weight: bold;
+  pointer-events: none;
+  font-size: 1.2rem;
+  z-index: 10;
+  text-shadow: 0 0 3px black;
+}
+
+.critical-damage {
+  color: #ff4d4d;
+  font-size: 1.6rem;
+  animation: float-up 1s ease-out forwards, fade-out 1s ease-out forwards;
+}
+
+@keyframes float-up {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-60px);
+  }
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.boss-health-bar {
+  height: 12px;
+  background: #444;
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+}
+
+.boss-health-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ff4d4d, #ff6b6b);
+  transition: width 0.2s ease-out;
+  border-radius: 6px 0 0 6px;
+}
+
+.dungeon-card {
+  transition: all 0.2s ease;
+}
+
+.dungeon-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.dungeon-locked {
+  filter: grayscale(1);
+  opacity: 0.7;
+}
+
+.item-card {
+  transition: all 0.2s ease;
+}
+
+.item-card:hover {
+  transform: translateY(-3px);
+}
+
+.shake-animation {
+  animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
